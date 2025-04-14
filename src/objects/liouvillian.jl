@@ -134,7 +134,7 @@ function LdLXYZConstruct(
     maxdim::Int=50000,
     cutoff::Float64=1e-8
 )
-    L = length(sites)
+    # L = length(sites)
     
     # Construct the Liouvillian and its dagger
     LiouvAMPO = LiouvXYZConstruct(Jx, Jy, Jz, sites, dissipatorsVec, dissipatorsTempValues, gammaVec, hVec)
