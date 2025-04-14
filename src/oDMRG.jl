@@ -2,7 +2,7 @@ module oDMRG
 
 using ITensors, ITensorMPS # both needed for everything
 using LinearAlgebra # used by Liouv creation functions
-export TwoSpinHalfSite, LdLXYZConstruct, make_ivec, calculate_magnetization, claculate_spinFlux, fluxXXX, magnonDensityXXX
+export TwoSpinHalfSite, LdLXYZConstruct, make_ivec, calculate_magnetization, calculate_spinFlux, fluxXXX, magnonDensityXXX
 
 # All component files
 include("sites/twoSpinHalf.jl")
