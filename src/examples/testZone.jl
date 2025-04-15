@@ -7,6 +7,7 @@ include("../objects/liouvillian.jl")
 include("../objects/Ivec.jl")
 include("../observables/spinFlux.jl")
 include("../observables/magnonDensity.jl")
+include("../funcs/warmUp.jl")
 include("../analyticalBenchmarking/spinFluxXXX.jl")
 include("../analyticalBenchmarking/magnonDensityXXX.jl")
 

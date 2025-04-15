@@ -7,6 +7,7 @@ include("../objects/liouvillian.jl")
 include("../objects/Ivec.jl")
 include("../observables/spinFlux.jl")
 include("../observables/magnonDensity.jl")
+include("../funcs/warmUp.jl")
 include("../analyticalBenchmarking/spinFluxXXX.jl")
 include("../analyticalBenchmarking/magnonDensityXXX.jl")
 
@@ -30,45 +31,31 @@ LdL = LdLXYZConstruct(sites, params...; maxdim=500, cutoff=1e-8)
 rho = make_ivec(L, sites)
 
 cutoff = 1E-10
-# Warm up routine (many bd=1 dmrg runs)
-println("Initializing warm-up routine")
-energyFin = floatmax(Float64)
-warmUpTag = true
-convergenceThreshold = 0.00001 #1E-10
-warmUpTracker = 0
-while warmUpTag
-    global warmUpTracker += 1
-    energyIni = energyFin;
-    global energyFin, rho = dmrg(LdL,rho; nsweeps=1, maxdim=1, cutoff=cutoff, outputlevel=0)
 
-    println("Difference between energies: ", (energyIni-energyFin))
-
-    if abs(abs(energyIni)-abs(energyFin)) < convergenceThreshold
-        global warmUpTag = false
-        println("EndedWarmUpAfter ", warmUpTracker, " sweeps")
-    end
-end
+warmUp(rho, LdL, 0.0000001)
+Ivec = make_ivec(L, sites)
 
 # Now initiating iterative maxDim increase oDMRG
-finalMaxDim = 500
+global maxdim2 = 2;
 maxDimInc = 2;
-energyFin = 10000000.0
-sweepBDChangeThresholdValue = 0.0006 # good values: 0.0005 ~ 0.001
-finalSweep = 500; # usually 1000~2000 works for N = 10. Experiment with more for larger sizes
-maxdim2 = 2;
+sweepBDChangeThresholdValue = 0.001 # good values: 0.0005 ~ 0.001
+finalSweep = 50; # usually 1000~2000 works for N = 10. Experiment with more for larger sizes
+
+global energyFin = floatmax(Float64)
 for iniSweep in 1:finalSweep
     energyIni = energyFin
     global energyFin, rho = dmrg(LdL,rho; nsweeps=1, maxdim=maxdim2, cutoff=cutoff)
-    if abs((energyIni - energyFin)/energyIni) < sweepBDChangeThresholdValue
+
+    # Now we calculate the flux
+    # currents = calculate_spinFlux(Ivec, rho, sites, [1:L;])
+    if (abs(energyFin) < abs(energyIni)) && abs(abs(energyFin) - abs(energyIni))/energyIni < sweepBDChangeThresholdValue
         global maxdim2 += maxDimInc
     end
 end
 println("Final energy = $energyFin")
 
-# Now we calculate the flux
-Ivec = make_ivec(L, sites)
-currents = calculate_spinFlux(Ivec, rho, sites, [1:L;])
 
+currents = calculate_spinFlux(Ivec, rho, sites, [1:L;])
 println("Analytical value of the current: ", -fluxXXX(L, gamma))
 println("Numerical approximation of the current: ", mean(currents))
 
