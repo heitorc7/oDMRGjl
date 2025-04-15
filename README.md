@@ -54,7 +54,7 @@ gui()
 # Keeps plots open
 read(stdin, Char)
 ```
-![Example Plot](example/examplePlotN-5.png) *(Check the jupyter notebook for more compreensive and well-optimized examples`)*
+![Example Plot](src/examples/examplePlotN-5.png) *(Check the jupyter notebook for more compreensive and well-optimized examples`)*
 
 ## Citation
 ```bibtex
