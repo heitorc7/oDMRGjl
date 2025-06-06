@@ -75,6 +75,6 @@ abstract = {Understanding the intricate properties of one-dimensional quantum sy
 
 ## Contribute
 ```bash
-git clone [https://github.com/yourname/Kitties.jl.git](https://github.com/heitorc7/oDMRGjl)
+git clone https://github.com/heitorc7/oDMRGjl
 ] dev ./oDMRG
 ```
