@@ -2,6 +2,7 @@ module oDMRG
 
 using ITensors, ITensorMPS # both needed for everything
 using LinearAlgebra # used by Liouv creation functions
+using HDF5 # saving and loading
 export TwoSpinHalfSite, LdLXYZConstruct, make_ivec, calculate_spinFlux, calculate_magnetization, warmUp, fluxXXX, magnonDensityXXX, fileHandling
 
 # All component files
