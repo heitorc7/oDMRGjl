@@ -1,4 +1,4 @@
-function warmUp(rho::MPS, LDL::MPO, convergenceThreshold = 0.00001, cutoff = 1E-10)
+function warmUp(rho::MPS, LdL::MPO, convergenceThreshold = 0.00001, cutoff = 1E-10)
     println("Initializing warm-up routine")
     global energyFin = floatmax(Float64)
     global warmUpTag = true
