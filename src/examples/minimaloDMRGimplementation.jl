@@ -41,6 +41,7 @@ Ivec = make_ivec(L, sites)
 warmUp(rho, LdL, 0.001)
 
 # Now initiating iterative maxDim increase oDMRG
+global maxdim2 = 2;
 finalMaxDim = 500
 maxDimInc = 2;
 sweepBDChangeThresholdValue = 0.001 # good values: 0.0005 ~ 0.001
