@@ -9,7 +9,6 @@ include("src/observables/spinFlux.jl")
 include("src/observables/magnonDensity.jl")
 include("src/funcs/warmUp.jl")
 include("src/funcs/fileHandling.jl")
-include("src/funcs/oDMRGobserver.jl")
 # include("src/analyticalBenchmarking/spinFluxXXX.jl")
 # include("src/analyticalBenchmarking/magnonDensityXXX.jl")
 
@@ -68,7 +67,6 @@ function main(args)
 
             global energyFin = floatmax(Float64)
             global energyThreshold = 1E-7
-            obs = oDMRGobserver(1E-7)
 
             global sweep = 1
             while abs(energyFin) > energyThreshold
